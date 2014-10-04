@@ -12,12 +12,12 @@ On Friday, we had two great talks by the developers at [thoughtbot](http://thoug
 In the interest of transparency, here is the short amount of history that I have with a recent hangman game I have been writing. You can see my public github for this code here: [hangman.rb](https://github.com/kenyonj/metis-week01/blob/master/day05/hangman.rb)
 
 `Here was the first commit, definitely not working yet:`
-{<1>}![](http://i.imgur.com/pJTLaAG.png)
+![](http://i.imgur.com/pJTLaAG.png)
 
 `Here was the second commit, fixed some stuff, but still really can't play it`
-{<2>}![](http://i.imgur.com/SaA9moA.png)
-{<3>}![](http://i.imgur.com/lTZ73xz.png)
+![](http://i.imgur.com/SaA9moA.png)
+![](http://i.imgur.com/lTZ73xz.png)
 
 `...And, here is my third commit. The game works and can be played, all that's left is some refactoring (for another day)`
-{<4>}![](http://i.imgur.com/bsIfaan.png)
-{<5>}![](http://i.imgur.com/Xr1dIpe.png)
+![](http://i.imgur.com/bsIfaan.png)
+![](http://i.imgur.com/Xr1dIpe.png)

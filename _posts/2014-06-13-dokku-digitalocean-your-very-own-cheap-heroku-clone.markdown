@@ -26,27 +26,27 @@ You can use a coupon code for $10 to be added to your account (which is basicall
             - Press `enter` to leave the password blank. note: if you want to be super secure, enter a password here and you will be asked for that password whenever authenticating using this key.
             - `cat ~/.ssh/id_rsa.pub`
             - Copy the output to your clipboard and continue to the next set of steps
-	- On DigitalOcean, click on SSH Keys, then Add SSH Key: 
+	- On DigitalOcean, click on SSH Keys, then Add SSH Key:
 		- In the top field, give this key a name. This is not significant, just a way to differentiate between SSH Keys.
-		- Paste what you copied from the output of `cat ~/.ssh/id_rsa.pub` in the bottom field. 
+		- Paste what you copied from the output of `cat ~/.ssh/id_rsa.pub` in the bottom field.
         - Click on CREATE SSH KEY
 
-{<1>}![ssh_key](http://i.imgur.com/YXw5C5R.png)
-#### Note 
+![ssh_key](http://i.imgur.com/YXw5C5R.png)
+#### Note
 The above key is totally random and not my real SSH Key. On that note, you should never publish your key since it gives you full root access to the system we are going to build.
 
 ---
-   
-#### Create your droplet   
+
+#### Create your droplet
 - Click on `Create` to start the creation of a new droplet:
 
-{<2>}![create_droplet](http://i.imgur.com/IfYgu56.png)
+![create_droplet](http://i.imgur.com/IfYgu56.png)
 
 -  Use the screen caps below to guide you through the droplet creation. Underneath the following pictures I will give you notes on some of the fields.
 
-{<3>}![droplet_1](http://i.imgur.com/3Xa0Zy8.png)
-{<4>}![droplet_2](http://i.imgur.com/QHhy4Yk.png)
-{<5>}![droplet_3](http://i.imgur.com/OcEWZmr.png)
+![droplet_1](http://i.imgur.com/3Xa0Zy8.png)
+![droplet_2](http://i.imgur.com/QHhy4Yk.png)
+![droplet_3](http://i.imgur.com/OcEWZmr.png)
 
 #### Notes:
 - For the hostname field: You will add in your domain name here. This does not have to be registered yet, but you should think about registering something to be able to really customize your deployments. Here you can have the domain `appsinspace.com`. This allows you to deploy apps that are accessible through: `http://app-name.appsinspace.com`, just like Heroku!
@@ -58,16 +58,16 @@ The above key is totally random and not my real SSH Key. On that note, you shoul
 
 ---
 - Once your droplet has been created, you will be directed to a page like the one below:
-{<6>}![droplet_settings](http://i.imgur.com/0dXrrqm.png)
+![droplet_settings](http://i.imgur.com/0dXrrqm.png)
 
 - Copy down the IP address from this screen. I will here on refer to that address  as: `<IP-ADDRESS>`
 
 - Navigate to `http://<IP-ADDRESS>` and you should see a screen similar to below:
-{<7>}![dokku_setup](http://i.imgur.com/8oR3yiu.png)
+![dokku_setup](http://i.imgur.com/8oR3yiu.png)
 
 #### Notes:
 - Paste your SSH Key that you created on DigitalOcean into this top box.
-- In the Hostname field, you can leave it as an IP address, or change it to your custom domain name that you have registered. 
+- In the Hostname field, you can leave it as an IP address, or change it to your custom domain name that you have registered.
 - The option right below the Hostname field can be checked if you wish to use app URLs like `thisismyapp.appsinspace.com`, otherwise you can just leave it unchecked and apps will be deployed in the format displayed in the last text field.
 - Once you have the options set up, click on "Finish Setup"
 
@@ -88,7 +88,7 @@ The above key is totally random and not my real SSH Key. On that note, you shoul
             		- `docker run progrium/buildstep locale-gen en_US.UTF-8`
                 	- `docker ps -l` - note the ID of the command you just ran
                 	- `docker commit <ID FROM PREVIOUS STEP> progrium/buildstep`
-                
+
 #### Now you are ready to deploy an app!
 - Clone this small heroku sample rails app and deploy it using these steps:
 
@@ -113,18 +113,18 @@ The above key is totally random and not my real SSH Key. On that note, you shoul
     - `exit`
     - `exit` - not a duplication error, this will log you our of your ssh session.
     - Note: this is quite the process. Hopefully in the future I can wrap this all up in a script that can be run after deployment to make it even more like Heroku.
-    
-###Done! 
+
+###Done!
 Now you can navigate to your new web app url, either: `http://rails-sample.appsinspace.com`, or something similar, or `http://<IP-ADDRESS>:<SPECIFIC-PORT>` (these details can be found at the bottom of the push messages from earlier, in this format:
 
-{<8>}![deployed_at](http://i.imgur.com/loKHLrc.png)
+![deployed_at](http://i.imgur.com/loKHLrc.png)
 
 I hope that this guide was informative and helpful. It may even save you some money while giving you a dev playground on the cheap.
 
 Thanks for reading!
-    
-        
-        
+
+
+
 
 
 
