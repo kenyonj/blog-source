@@ -100,8 +100,8 @@ pre {
 code {
    padding: .25em .5em;
    font-size: 75%;
-   color: #bf616a;
-   background-color: transparent;
+   color: black;
+   background: lightgray;
    border-radius: 3px;
 }
 pre {
