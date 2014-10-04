@@ -16,4 +16,4 @@ The final glue that brings these and many other tools together are the dotfiles.
 By familiarizing myself with these tools I have not only allowed my learning and performance to accelerate drastically, but I have also bumped up my developer cred for when I am looking for a company to join at the end of the [Metis bootcamp](http://thisismetis.com). The tools you use are as much a part of your resume as the code you write with them.
 
 Here is an example of all my tools in one screenshot... Beautiful, right?
-{<1>}![vim-tmux-iterm2](http://i.imgur.com/EoJ2gAW.png)
+![vim-tmux-iterm2](http://i.imgur.com/EoJ2gAW.png)
