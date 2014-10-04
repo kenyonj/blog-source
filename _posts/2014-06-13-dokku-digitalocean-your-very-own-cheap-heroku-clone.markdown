@@ -14,22 +14,23 @@ I tried looking for a definitive guide of how to do this and ended up in lots of
 
 - Sign up for an account at [DigitalOcean](https://www.digitalocean.com/?refcode=a0f9fff0e285). (note: this is a referral link, I get credit for referring you to DigitalOcean... Thanks!)
 You can use a coupon code for $10 to be added to your account (which is basically 2 months free) by searching google for: `DigitalOcean Promo Code`. Once you have this code, you can add it to your account on the billing page:
-   - Click on Billing
-   - Click on Manage Payments
-   - Add the promo code on the bottom of this page
+  - Click on Billing
+  - Click on Manage Payments
+  - Add the promo code on the bottom of this page
 
 - Create an ssh key for your system to share with DigitalOcean for authentication:
-	- Open terminal:
-    	- Type these commands (pressing enter after each `command`):
-        	- `ssh-keygen -t rsa`
-            - Press `enter` to save it in the default location: `~/.ssh/id_rsa`
-            - Press `enter` to leave the password blank. note: if you want to be super secure, enter a password here and you will be asked for that password whenever authenticating using this key.
-            - `cat ~/.ssh/id_rsa.pub`
-            - Copy the output to your clipboard and continue to the next set of steps
-	- On DigitalOcean, click on SSH Keys, then Add SSH Key:
-		- In the top field, give this key a name. This is not significant, just a way to differentiate between SSH Keys.
-		- Paste what you copied from the output of `cat ~/.ssh/id_rsa.pub` in the bottom field.
-        - Click on CREATE SSH KEY
+  - Open terminal:
+    - Type these commands (pressing enter after each `command`):
+      - `ssh-keygen -t rsa`
+      - Press `enter` to save it in the default location: `~/.ssh/id_rsa`
+      - Press `enter` to leave the password blank. note: if you want to be super secure, enter a password here and you will be asked for that password whenever authenticating using this key.
+      - `cat ~/.ssh/id_rsa.pub`
+      - Copy the output to your clipboard and continue to the next set of steps
+
+- On DigitalOcean, click on SSH Keys, then Add SSH Key:
+  - In the top field, give this key a name. This is not significant, just a way to differentiate between SSH Keys.
+  - Paste what you copied from the output of `cat ~/.ssh/id_rsa.pub` in the bottom field.
+  - Click on CREATE SSH KEY
 
 ![ssh_key](http://i.imgur.com/YXw5C5R.png)
 #### Note
@@ -73,46 +74,46 @@ The above key is totally random and not my real SSH Key. On that note, you shoul
 
 ---
 - Now that you have the dokku side all finished, there are some maintenance tasks that need to take place on the server that, if not completed, will cause some apps to fail at deployment.
-	- Open terminal
-    	- Type these commands (pressing enter after each `command`):
-    		- `ssh root@<IP-ADDRESS>`
-        		- these steps will update the dokku deploy step:
-        			- `cd ~/dokku`
-        			- `git pull origin master`
-                	- `make install`
-            	- these steps will install the dokku postgresql plugin:
-            		- `cd /var/lib/dokku/plugins`
-                	- `git clone https://github.com/Kloadut/dokku-pg-plugin postgresql`
-                	- `dokku plugins-install`
-            	- these steps will fix the LANG env variable for the docker containers (currently unecessary for rails deployments, but I am currently working on Haskell deployments and this is an issue):
-            		- `docker run progrium/buildstep locale-gen en_US.UTF-8`
-                	- `docker ps -l` - note the ID of the command you just ran
-                	- `docker commit <ID FROM PREVIOUS STEP> progrium/buildstep`
+- Open terminal
+- Type these commands (pressing enter after each `command`):
+  - `ssh root@<IP-ADDRESS>`
+    - these steps will update the dokku deploy step:
+      - `cd ~/dokku`
+      - `git pull origin master`
+      - `make install`
+    - these steps will install the dokku postgresql plugin:
+      - `cd /var/lib/dokku/plugins`
+      - `git clone https://github.com/Kloadut/dokku-pg-plugin postgresql`
+      - `dokku plugins-install`
+    - these steps will fix the LANG env variable for the docker containers (currently unecessary for rails deployments, but I am currently working on Haskell deployments and this is an issue):
+      - `docker run progrium/buildstep locale-gen en_US.UTF-8`
+      - `docker ps -l` - note the ID of the command you just ran
+      - `docker commit <ID FROM PREVIOUS STEP> progrium/buildstep`
 
 #### Now you are ready to deploy an app!
 - Clone this small heroku sample rails app and deploy it using these steps:
 
-    - `git clone git@github.com:heroku/ruby-rails-sample.git`
-    - `cd ruby-rails-sample`
-    - `bundle`
-    - `bundle exec rake bootstrap`
-    - `git remote add dokku dokku@<IP-ADDRESS>:rails-sample`
-    - `git push dokku master`
-    - You will now see a bunch of deploy buildsteps, similar to what you see when deploying to heroku.
-    - Once this is complete, you will still not be able to view your app since we have to create the database on the server side, even though this is completed automatically when using Heroku (small price to pay for your own deployment system).
+  - `git clone git@github.com:heroku/ruby-rails-sample.git`
+  - `cd ruby-rails-sample`
+  - `bundle`
+  - `bundle exec rake bootstrap`
+  - `git remote add dokku dokku@<IP-ADDRESS>:rails-sample`
+  - `git push dokku master`
+  - You will now see a bunch of deploy buildsteps, similar to what you see when deploying to heroku.
+  - Once this is complete, you will still not be able to view your app since we have to create the database on the server side, even though this is completed automatically when using Heroku (small price to pay for your own deployment system).
 
 - Log into your server, create the database, and rake db:migrate by following these steps:
-	- `ssh root@<IP-ADDRESS>`
-    - `dokku postgresql:create rails-sample`
-    - `docker run -i -t dokku/rails-sample /bin/bash`
-    - `export HOME=/app`
-    - `for file in /app/.profile.d/*; do source $file; done`
-    - `hash -r`
-    - `cd /app`
-    - `RAILS_ENV=production rake db:migrate`
-    - `exit`
-    - `exit` - not a duplication error, this will log you our of your ssh session.
-    - Note: this is quite the process. Hopefully in the future I can wrap this all up in a script that can be run after deployment to make it even more like Heroku.
+  - `ssh root@<IP-ADDRESS>`
+  - `dokku postgresql:create rails-sample`
+  - `docker run -i -t dokku/rails-sample /bin/bash`
+  - `export HOME=/app`
+  - `for file in /app/.profile.d/*; do source $file; done`
+  - `hash -r`
+  - `cd /app`
+  - `RAILS_ENV=production rake db:migrate`
+  - `exit`
+  - `exit` - not a duplication error, this will log you our of your ssh session.
+  - Note: this is quite the process. Hopefully in the future I can wrap this all up in a script that can be run after deployment to make it even more like Heroku.
 
 ###Done!
 Now you can navigate to your new web app url, either: `http://rails-sample.appsinspace.com`, or something similar, or `http://<IP-ADDRESS>:<SPECIFIC-PORT>` (these details can be found at the bottom of the push messages from earlier, in this format:
@@ -122,9 +123,3 @@ Now you can navigate to your new web app url, either: `http://rails-sample.appsi
 I hope that this guide was informative and helpful. It may even save you some money while giving you a dev playground on the cheap.
 
 Thanks for reading!
-
-
-
-
-
-
