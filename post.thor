@@ -1,32 +1,43 @@
-require "erb"
-
+require "stringex"
 class Post < Thor
-  include Thor::Actions
 
-  desc "create [TITLE]", "Create a new blog post"
-  def create(title)
-    puts "Generating blog post: #{title}"
+  desc "new", "create a new post"
+  method_option :editor, :default => "vim"
+  method_option :date
+  method_option :category, :default => "blog"
 
-    md = ERB.new(File.read('templates/post.erb')).result(binding)
+  def new(*title)
+    title = title.join(" ")
+    date = options[:date] || Time.now.strftime('%Y-%m-%d')
+    category = options[:category]
+    layout = options[:category] == 'blog' ? 'post' : 'project'
+    filename = "_posts/#{category}/#{date}-#{title.to_url}.md"
 
-    file = "_posts/" + [short_date, title.downcase.gsub(/\W+/, '-')].join('-') + '.md'
-
-    exists = File.exists?(file)
-    overwrite = yes? "Do you want to overwrite #{file}?" if exists
-
-    if !exists || overwrite
-    else
-      puts "Not going to overwrite #{file}. Move it, or try a different title."
+    if File.exist?(filename)
+      abort("#{filename} already exists!")
     end
+
+    puts "Creating new post: #{filename}"
+    open(filename, 'w') do |post|
+      post.puts "---"
+      post.puts "layout: #{layout}"
+      post.puts "title: \"#{title.gsub(/&/,'&amp;')}\""
+      post.puts "date: #{date}"
+      post.puts "tags:"
+      post.puts "categories: #{category}"
+      if category == 'projects'
+        post.puts "images:"
+        post.puts "    - type: desktop"
+        post.puts "      src: -desktop.jpg"
+        post.puts "    - type: tablet"
+        post.puts "      src: -tablet.jpg"
+        post.puts "    - type: mobile"
+        post.puts "      src: -mobile.jpg"
+      end
+      post.puts "---"
+    end
+
+    system(options[:editor], filename)
   end
 
-  no_tasks {
-    def full_date
-      DateTime.now.strftime('%F %T.%6N %:z')
-    end
-
-    def short_date
-      DateTime.now.strftime('%F')
-    end
-  }
 end
