@@ -2,7 +2,7 @@ name: "Really Busy Wizards"
 markdown: redcarpet
 highlighter: pygments
 permalink: :title
-exclude: [README.md, LICENSE, Makefile, Gemfile, Gemfile.lock, templates, post.thor]
+exclude: [README.md, LICENSE, Makefile, Gemfile, Gemfile.lock, templates, post.thor, bin]
 
 # Information for the Atom feed
 gereksiz:
