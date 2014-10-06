@@ -1,11 +1,11 @@
 #!/bin/zsh
 
 if [ -d "_site" ]; then
-  echo $fg[red] "Removing existing _site/ directory..."
+  echo "\nRemoving existing _site/ directory...\n"
   rm -rf _site
 fi
 
-echo $fg[red] "Cloning blog to _site/ directory..."
+echo "\nCloning blog to _site/ directory...\n"
 git clone git@github.com:kenyonj/blog.git _site/
 
-echo $fg[red] "Complete. You may now push to this repo."
+echo "\nComplete. You may now push to this repo.\n"

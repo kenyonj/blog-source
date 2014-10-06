@@ -1,12 +1,12 @@
 #!/bin/zsh
 
-echo $fg[red] "Building jekyll pages..."
+echo "\nBuilding jekyll pages...\n"
 jekyll build
 
-echo $fg[red] "Committing changes to github..."
+echo "\nCommitting changes to github...\n"
 cd _site && git add -A && git commit -m "Update site"
 
-echo $fg[red] "Pushing updates to github..."
+echo "\nPushing updates to github...\n"
 git push && cd ..
 
-echo $fg[red] "Finished. Site will show updated content in the next 10 minutes."
+echo "\nFinished. Site will show updated content in the next 10 minutes.\n"
