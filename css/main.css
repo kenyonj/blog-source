@@ -8,6 +8,7 @@
    -moz-box-sizing: border-box;
    -webkit-box-sizing: border-box;
    box-sizing: border-box;
+   font-family: Monaco, "Courier New", monospace;
 }
 
 html, body { height: auto; }
@@ -16,7 +17,7 @@ h2 { font-size: 125%; margin-bottom: .5em; }
 p { margin: 1em 0; }
 
 body {
-   background-color: #808080;
+   background-color: white;
    font: 13.34px "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
    font-size: small;
    -webkit-font-smoothing: antialiased;
@@ -24,8 +25,8 @@ body {
 }
 
 /* Gentle links */
-a { color: #FF8336; text-decoration: none; }
-a:hover { color: #DE6A21; }
+a { color: black; text-decoration: none; }
+a:hover { color: gray; }
 
 /* The blog posts archive, a long list */
 .posts {
@@ -38,10 +39,11 @@ a:hover { color: #DE6A21; }
    text-overflow: ellipsis;
    white-space: nowrap;
    line-height: 2em;
+   font-family: Monaco, "Courier New", monospace;
 }
 
 .posts span {
-   color: #9ED6F9;
+   color: red;
    font-family: Monaco, "Courier New", monospace;
    font-size: 75%;
    margin-right: 1em;
