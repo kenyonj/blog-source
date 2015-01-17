@@ -8,3 +8,4 @@ exclude: [README.md, LICENSE, Makefile, Gemfile, Gemfile.lock, templates, post.t
 gereksiz:
    author: "Justin Kenyon"
    email: "kenyonj@gmail.com"
+   site: "http://justinkenyon.com"
